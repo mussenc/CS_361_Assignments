@@ -1,5 +1,5 @@
 from time import sleep
-from PIL import Image
+import webbrowser
 
 sleep_sec = 5
 
@@ -26,9 +26,11 @@ while True:
                 with open('image-service.txt', 'r', encoding="utf-8") as f:
                     read_data = f.read()
                     print(f'This image is located at {read_data}')
-                    image = Image.open(read_data)
-                    image.show()
+                    # image = Image.open(read_data)
+                    # image.show()
+                webbrowser.open_new_tab(read_data)
         elif input_value == "2":
             break    
         else:
             print("Unknown Option")
+        input_value = 0
