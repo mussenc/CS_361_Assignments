@@ -1,0 +1,23 @@
+{
+    "productId" : {
+        "genericName": "A generic name",
+        "greenEnergyType" : "solar/wind",
+        "cost": "$$$",
+        "power": "Power (W)",
+        "description": "Various details of system" 
+    },
+    "001" : {
+        "genericName": "REC Solar N-PEAK 3 Black Series 400 Watt Monocrystalline Solar Module",
+        "greenEnergyType" : "solar",
+        "cost": "340",
+        "power": "400",
+        "description": "Nominal power: 400 Watts, Number of cells: 132 half-cut, Power tolerance: 0 / +5 Watts, Vmp: 37.6 Volts, Voc: 45.0 Volts, Imp: 10.64 Amps, Isc: 11.39 Amps, Module efficiency: 20.3%, Dimensions (inches): 74.8 x 40.9 x 1.2, Weight: 48.0 lbs" 
+    },
+    "002" : {
+        "genericName": "Missouri Freedom 48 Volt 2000 Watt Wind Turbine and VRD Classic MPPT Kit",
+        "greenEnergyType" : "wind",
+        "cost": "4144.49",
+        "power": "2000",
+        "description": "48 Volt 2000 Watt Freedom Wind Turbine featuring three Missouri Falcon blades, 100 Feet 12/6 SJOO Cable, All in One Pre-Wired Missouri VRD Midnite Classic Charge Controller Board" 
+    }
+}
