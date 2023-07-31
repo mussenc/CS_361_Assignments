@@ -16,7 +16,8 @@ The function used to calculate the score can be found [here](https://github.com/
 
 
 ###UML Sequence Diagram
-![UML drawio](https://github.com/mussenc/CS_361_Assignments/assets/97072724/7b7dd020-c30a-4cf0-b55d-0860ced6f81d)
+
+![UML drawio (1)](https://github.com/mussenc/CS_361_Assignments/assets/97072724/951ab617-e510-42db-b0e1-facad10d3c60)
 
 
 ###Example call
