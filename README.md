@@ -12,9 +12,11 @@ An example call that can be used to request a calculation can be found [here](ht
 The function used to calculate the score can be found [here](https://github.com/mussenc/CS_361_Assignments/blob/main/cribbageScoreMicroService/function.py)https://github.com/mussenc/CS_361_Assignments/blob/main/cribbageScoreMicroService/function.py
 
 ###High Level Design
-![cribbageScoreMicroService drawio (2)](https://github.com/mussenc/CS_361_Assignments/assets/97072724/8a7955f2-2726-4f74-bc24-7fbbc337d42a)
+![cribbageScoreMicroService drawio (2)](https://github.com/mussenc/CS_361_Assignments/assets/97072724/adeafcfd-afbc-4ad5-b228-9daea5ae5cb9)
+
 
 ###UML Sequence Diagram
+![UML drawio](https://github.com/mussenc/CS_361_Assignments/assets/97072724/7b7dd020-c30a-4cf0-b55d-0860ced6f81d)
 
 
 ###Example call
