@@ -74,3 +74,15 @@ print(r.content)
 ```
 b'{"value": 6}'
 ```
+
+### Communication Contract
+The cribbage micro service can be reached by a POST request to my HTTP API https://hndbhbcjx6.execute-api.us-east-2.amazonaws.com/hand. An object following this format needs to be used. The reponse to this request will be the {"value": 6}
+
+Object Format 
+```
+{
+  "draw_index": <int>,
+  "nums": [<list>],
+  "suits": [<list>]
+}
+```
