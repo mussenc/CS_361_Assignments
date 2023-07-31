@@ -12,7 +12,8 @@ An example call (POST Request)that can be used to request a calculation can be f
 The function used to calculate the score can be found [here](https://github.com/mussenc/CS_361_Assignments/blob/main/cribbageScoreMicroService/function.py)https://github.com/mussenc/CS_361_Assignments/blob/main/cribbageScoreMicroService/function.py
 
 ### High Level Design
-![cribbageScoreMicroService drawio (2)](https://github.com/mussenc/CS_361_Assignments/assets/97072724/adeafcfd-afbc-4ad5-b228-9daea5ae5cb9)
+![cribbageScoreMicroService drawio (3)](https://github.com/mussenc/CS_361_Assignments/assets/97072724/001046a1-43a4-462c-b318-ec55c240e82a)
+
 
 
 ### UML Sequence Diagram
