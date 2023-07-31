@@ -19,7 +19,7 @@ The function used to calculate the score can be found [here](https://github.com/
 
 ![UML drawio (1)](https://github.com/mussenc/CS_361_Assignments/assets/97072724/951ab617-e510-42db-b0e1-facad10d3c60)
 
-The post should be a dictionary/object following this format
+The POST request should be a dictionary/object following this format
 ```
 params = {
   "draw_index": 3,
