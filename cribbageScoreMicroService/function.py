@@ -28,24 +28,32 @@ def lambda_handler(event, context):
 
 def fifteens(cards):
     nums = cards["nums"]
-    suits = cards["suits"]
-    score = 0
-
-    for i in range(0, len(nums)):
-        remaining_nums = nums.copy()
-
-        del remaining_nums[i]
-
-        for j in range(0, len(remaining_nums)):
-            total = nums[i] + remaining_nums[j]
-            if total == 15:
-                print(f'{nums[i]} + {remaining_nums[j]} = {total}')
-                print("The total is 15")
-                score = score + 2
-
-    score = score // 2 # Every had is double counted, need to divided by 2 to get the result
+    score = sum_cards(nums, [], 0)
+    
+    print(f'score is {score}')
     print(f'The total score 15s is {score}')
+    
     return score
+
+def sum_cards(current_nums, remain_nums, score):
+    """Recursive call to permute code, based off https://www.youtube.com/watch?v=NdF1QDTRkck and https://stackoverflow.com/questions/4632322/finding-all-possible-combinations-of-numbers-to-reach-a-given-sum"""
+    value = 15
+    remain_sum = sum(remain_nums)
+    if remain_sum == value:
+        score = score + 2
+        return score
+    elif remain_sum > value:
+        return score
+    
+    for i in range(len(current_nums)):
+        num = current_nums[i]
+        current_nums_2 = current_nums[i+1:]
+        remain_nums_2 = remain_nums + [num]
+
+        score = sum_cards(current_nums_2, remain_nums_2, score)
+
+    return score
+
 
 def runs(cards):
     nums = cards["nums"]
