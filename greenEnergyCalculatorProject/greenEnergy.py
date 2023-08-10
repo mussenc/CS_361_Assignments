@@ -1,4 +1,6 @@
 from argparse import ArgumentParser, Namespace
+import requests
+
 
 def main():
     parser = ArgumentParser()
@@ -30,6 +32,15 @@ def main():
     parser_greenEnergyTypes = subparsers.add_parser('greenEnergyTypes', help='Returns a list of green energy types')
     parser_greenEnergyTypes.set_defaults(func=greenEnergyTypes)
     parser_greenEnergyTypes.add_argument("-v", "--verbose", help="Provides a verbose description", action='store_true')
+
+    # create the subparser for the "homeProductOptions" command
+    parser_homeProductOptions = subparsers.add_parser('homeProductOptions', help='Returns a list of green energy products')
+    parser_homeProductOptions.set_defaults(func=homeProductOptions)
+    parser_homeProductOptions.add_argument('type', type=str, help='provide a green energy type')
+    parser_homeProductOptions.add_argument('attribute', type=str, help='provide a green energy attribute (productID, cost, power)')
+    parser_homeProductOptions.add_argument('symbol', type=str, help='provide a symbol (eq, lt, gt, leq, geq)')
+    parser_homeProductOptions.add_argument('value', type=str, help='provide a value')
+    parser_homeProductOptions.add_argument("-v", "--verbose", help="Provides a verbose description", action='store_true')
 
     # use provided commands and arguments
     args = parser.parse_args()
@@ -91,6 +102,14 @@ def greenEnergyTypes(args):
     else:
         print(f"{energy_types}")
     return energy_types
+
+def homeProductOptions(args):
+    '''Function use return the green energy productions available in this program'''
+    url = f"http://flip1.engr.oregonstate.edu:6363/productsearch?greenEnergyType='{args.type}'&{args.attribute}={args.symbol}{args.value}"
+    print(url)
+    results = requests.get(url)
+    print(results.text)
+    return results.text
 
 if __name__ == '__main__':
     main()
