@@ -5,10 +5,10 @@ headers = {"Content-Type": "application/json"}
 params = {
   "draw_index": 3,
   "nums": [
-    5,
-    5,
-    5,
-    6,
+    4,
+    4,
+    8,
+    9,
     11
   ],
   "suits": [
