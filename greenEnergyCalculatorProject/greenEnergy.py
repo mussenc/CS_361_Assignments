@@ -106,7 +106,6 @@ def greenEnergyTypes(args):
 def homeProductOptions(args):
     '''Function use return the green energy productions available in this program'''
     url = f"http://flip1.engr.oregonstate.edu:6363/productsearch?greenEnergyType='{args.type}'&{args.attribute}={args.symbol}{args.value}"
-    print(url)
     results = requests.get(url)
     print(results.text)
     return results.text
