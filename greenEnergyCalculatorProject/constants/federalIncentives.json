@@ -1,0 +1,14 @@
+{
+    "federal" : [
+        {
+            "title" : "Residential Clean Energy Credit",
+            "short" : "Credit for 30% of the costs of new, qualified clean energy property",
+            "link" : "https://www.irs.gov/credits-deductions/residential-clean-energy-credit"
+        },
+        {
+            "title" : "Energy Efficient Home Improvement Credit",
+            "short" : "tax credit up to $3,200 if you make qualified energy-efficient improvements",
+            "link" : "https://www.irs.gov/credits-deductions/energy-efficient-home-improvement-credit"
+        }
+    ]
+}

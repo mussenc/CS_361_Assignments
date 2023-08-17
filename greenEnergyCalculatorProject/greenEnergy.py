@@ -1,5 +1,12 @@
 from argparse import ArgumentParser, Namespace
 import requests
+import json
+
+with open('./constants/electricRates.json') as f:
+    electricRateData = json.load(f)
+
+with open('./constants/federalIncentives.json') as f:
+    federalIncentivesData = json.load(f)
 
 
 def main():
@@ -42,6 +49,28 @@ def main():
     parser_homeProductOptions.add_argument('value', type=str, help='provide a value')
     parser_homeProductOptions.add_argument("-v", "--verbose", help="Provides a verbose description", action='store_true')
 
+    # create the subparser for the "financialIncentives" command
+    parser_financialIncentives = subparsers.add_parser('financialIncentives', help='Returns a federal incentives for green energy')
+    parser_financialIncentives.set_defaults(func=financialIncentives)
+    parser_financialIncentives.add_argument("-v", "--verbose", help="Provides a verbose description", action='store_true')
+
+    # create the subparser for the "solarPaybackPeriod" command
+    parser_solarPaybackPeriod = subparsers.add_parser('solarPaybackPeriod', help='Returns the number of months to cover the cost of a solar purchase')
+    parser_solarPaybackPeriod.set_defaults(func=solarPaybackPeriod)
+    parser_solarPaybackPeriod.add_argument('cost', type=float, help='provide the cost of a solar product')
+    parser_solarPaybackPeriod.add_argument('hours', type=int, help='provide amount of peak sun hours a day, typically 3-7')
+    parser_solarPaybackPeriod.add_argument('electricRate', type=float, help='provide a electric rate, use electricRate command to find one')
+    parser_solarPaybackPeriod.add_argument('power', type=int, help='provide a systems power (Watts), use homeProductOptions command to find one')
+    parser_solarPaybackPeriod.add_argument("-v", "--verbose", help="Provides a verbose description", action='store_true')
+
+    # create the subparser for the "solarPowerCostRatioPayback" command
+    parser_solarPowerCostRatioPayback = subparsers.add_parser('solarPowerCostRatioPayback', help='Returns the ratio of cost/power needed to maintain a payback period')
+    parser_solarPowerCostRatioPayback.set_defaults(func=solarPowerCostRatioPayback)
+    parser_solarPowerCostRatioPayback.add_argument('hours', type=int, help='provide amount of peak sun hours a day, typically 3-7')
+    parser_solarPowerCostRatioPayback.add_argument('electricRate', type=float, help='provide a electric rate, use electricRate command to find one')
+    parser_solarPowerCostRatioPayback.add_argument('months', type=int, help='The max number of months the user will not be paid back')
+    parser_solarPowerCostRatioPayback.add_argument("-v", "--verbose", help="Provides a verbose description", action='store_true')
+
     # use provided commands and arguments
     args = parser.parse_args()
     args.func(args)
@@ -49,9 +78,7 @@ def main():
 def electricRate(args):
     '''Function used to return the average electric rate in a specified US State'''
     
-    # uses microservice to provide average electric rate in a specified state
-    # rate = ??? in $/kWh
-    rate = .14 #place holder value
+    rate = electricRateData[args.state]
     if args.verbose:
         print(f"The average electric rate for {args.state} is {rate} $/kWh")
     else:
@@ -62,12 +89,10 @@ def electricRate(args):
 def homeElectricCost(args):
     '''Function used to return the electric cost for a home'''
     
-    # uses microservice to calculate home electric cost
-    # electric cost = ??? in $
-    low_use_sf = .5 #place holder value
-    high_use_sf = 1 #place holder value
-    low_cost = round((args.electricRate * low_use_sf * args.homeSize) ,2) #place holder calculation
-    high_cost = round((args.electricRate * high_use_sf * args.homeSize) ,2) #place holder calculation
+    low_use_sf = .5 
+    high_use_sf = 1
+    low_cost = round((args.electricRate * low_use_sf * args.homeSize) ,2) 
+    high_cost = round((args.electricRate * high_use_sf * args.homeSize) ,2) 
 
     if args.verbose:
         print(f"The electrical cost for a {args.homeSize} SF house is ${low_cost} to ${high_cost}")
@@ -78,10 +103,7 @@ def homeElectricCost(args):
 
 def homeSize(args):
     '''Function used to return the SF of a home'''
-    
-    # uses microservice to calculate SF
-    # sf = ??? in square feet
-    sf = args.width * args.length * args.floors #place holder calculation
+    sf = args.width * args.length * args.floors
 
     if args.verbose:
         print(f"The house is {sf} SF")
@@ -92,10 +114,7 @@ def homeSize(args):
 
 def greenEnergyTypes(args):
     '''Function used to return the greenEnergyTypes supported in this program'''
-    
-    # uses microservice to return greenEnergyTypes
-    # sf = ??? in square feet
-    energy_types = ["wind", "solar"] #place holder calculation
+    energy_types = ["wind", "solar"] 
 
     if args.verbose:
         print(f"The green energy types supported in this program are {energy_types}")
@@ -109,6 +128,35 @@ def homeProductOptions(args):
     results = requests.get(url)
     print(results.text)
     return results.text
+
+def financialIncentives(args):
+    '''Function used to share current federal incentives for purchasing green energy'''
+    if args.verbose:
+        print(f"The federal incentives in the US are currently...\n {federalIncentivesData}")
+    else:
+        print(json.dumps(federalIncentivesData, indent=2))
+    return federalIncentivesData
+
+def solarPaybackPeriod(args):
+    '''Function used to calculate the month of months it will take for a solar product to payback it's cost'''
+    power_generated = args.power * args.hours * 30
+    power_generated_cost = power_generated * args.electricRate
+    periods = (args.cost * 1000) // power_generated_cost
+    if args.verbose:
+        print(f"THe purchase will take {periods} months to pay back")
+    else:
+        print(periods)
+    return periods
+
+def solarPowerCostRatioPayback(args):
+    '''Function used to display the cost/power ratio needed '''
+    c_p = args.months * args.hours * 30 * args.electricRate / 1000
+    if args.verbose:
+        print(f"The cost must be less than {c_p} times the power rating")
+    else:
+        print(c_p)
+    return c_p
+
 
 if __name__ == '__main__':
     main()
