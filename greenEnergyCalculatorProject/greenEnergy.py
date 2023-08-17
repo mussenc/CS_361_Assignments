@@ -8,6 +8,9 @@ with open('./constants/electricRates.json') as f:
 with open('./constants/federalIncentives.json') as f:
     federalIncentivesData = json.load(f)
 
+with open('./constants/greenEnergyType.json') as f:
+    greenEnergyType = json.load(f)
+
 
 def main():
     parser = ArgumentParser()
@@ -70,6 +73,11 @@ def main():
     parser_solarPowerCostRatioPayback.add_argument('electricRate', type=float, help='provide a electric rate, use electricRate command to find one')
     parser_solarPowerCostRatioPayback.add_argument('months', type=int, help='The max number of months the user will not be paid back')
     parser_solarPowerCostRatioPayback.add_argument("-v", "--verbose", help="Provides a verbose description", action='store_true')
+
+    # create the subparser for the "energyTypes" command
+    parser_energyTypes = subparsers.add_parser('energyTypes', help='Returns the energy types supported in this CLI')
+    parser_energyTypes.set_defaults(func=energyTypes)
+    parser_energyTypes.add_argument("-v", "--verbose", help="Provides a verbose description", action='store_true')
 
     # use provided commands and arguments
     args = parser.parse_args()
@@ -156,6 +164,13 @@ def solarPowerCostRatioPayback(args):
     else:
         print(c_p)
     return c_p
+
+def energyTypes(args):
+    if args.verbose:
+        print(f"The energy types supported in this app...\n {greenEnergyType}")
+    else:
+        print(json.dumps(greenEnergyType, indent=2))
+    return greenEnergyType
 
 
 if __name__ == '__main__':

@@ -1,0 +1,8 @@
+{
+    "solar" : {
+        "def" : "Harnesses energy from the sun with photovoltaic cells, typically called 'Solar Panels'"
+    },
+    "wind" : {
+        "def" : "Harnesses kinetic energy from movement of air particles, typically called 'Wind Turbines'"
+    }
+}
